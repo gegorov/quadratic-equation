@@ -6,12 +6,10 @@ module.exports = function solveEquation(equation = '') {
   const b = parseInt(trimmed.match(/(?<=\^2)(-|\+)\d+(?=\*[a-zA-Z])/g).toString(), 10);
   const c = parseInt(trimmed.match(/(?<=\*[a-zA-Z])[-|\+]\d+$/g).toString(), 10);
 
-  const discriminant = (aa, bb, cc) => ((bb ** 2) - (4 * aa * cc));
+  const getDiscriminant = (aa, bb, cc) => ((bb ** 2) - (4 * aa * cc));
+  const sqrtDiscr = Math.sqrt(getDiscriminant(a, b, c));
 
-  if (discriminant(a, b, c)) {
-    console.log('Discriminant < 0, no real solutions');
-  }
-  const x1 = ((-1 * b) - Math.sqrt((b ** 2) - 4 * a * c)) / (2 * a);
-  const x2 = ((-1 * b) + Math.sqrt((b ** 2) - 4 * a * c)) / (2 * a);
+  const x1 = ((-1 * b) - sqrtDiscr) / (2 * a);
+  const x2 = ((-1 * b) + sqrtDiscr) / (2 * a);
   return [Math.round(x1), Math.round(x2)].sort((x, y) => x - y);
 };
